@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,15 +16,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GarbageCollectionApp"
         tools:targetApi="31">
-        <activity
-            android:name=".activities.MainActivity"
+
+
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.AreaListActivity" />
+        <activity android:name=".activities.ScheduleListActivity" />
+        <activity android:name=".activities.RequestListActivity" />
+        <activity android:name=".activities.CreateRequestActivity" />
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
