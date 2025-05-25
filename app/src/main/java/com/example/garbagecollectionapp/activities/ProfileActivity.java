@@ -12,7 +12,7 @@ import com.example.garbagecollectionapp.R;
 import com.example.garbagecollectionapp.models.User;
 import com.example.garbagecollectionapp.utils.SharedPrefManager;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
     private TextView tvName, tvEmail, tvPhone;
     private Button btnLogout, btnChangePassword;
@@ -30,6 +30,16 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadUserData();
         setupButtons();
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_profile;
+    }
+
+    @Override
+    protected int getSelectedNavigationItem() {
+        return R.id.nav_profile;
     }
 
     private void loadUserData() {

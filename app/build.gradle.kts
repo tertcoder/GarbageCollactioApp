@@ -61,4 +61,6 @@ dependencies {
 
     // Shimmer effect
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+    implementation("com.android.volley:volley:1.2.1")
 }

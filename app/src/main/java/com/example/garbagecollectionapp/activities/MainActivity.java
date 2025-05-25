@@ -16,7 +16,7 @@ import com.example.garbagecollectionapp.utils.SharedPrefManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fabCreateRequest;
@@ -40,6 +40,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         // Load the default fragment
         loadFragment(new HomeFragment());
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected int getSelectedNavigationItem() {
+        return R.id.nav_home;
     }
 
     private boolean loadFragment(Fragment fragment) {

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RequestListActivity extends AppCompatActivity {
+public class RequestListActivity extends BaseActivity {
 
     private RecyclerView rvRequests;
     private RequestAdapter requestAdapter;
@@ -40,6 +40,16 @@ public class RequestListActivity extends AppCompatActivity {
 
         setupRecyclerView();
         loadRequests();
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_request_list;
+    }
+
+    @Override
+    protected int getSelectedNavigationItem() {
+        return R.id.nav_requests;
     }
 
     private void setupRecyclerView() {

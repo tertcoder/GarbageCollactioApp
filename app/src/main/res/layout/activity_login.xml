@@ -81,16 +81,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="8dp"
-            android:text="@string/dont_have_account"
+            android:text="@string/register_instead"
             android:textColor="@color/colorTextSecondary" />
 
         <TextView
             android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/register"
-            android:textColor="@color/colorPrimary" />
+            android:layout_gravity="center"
+            android:text="@string/register_instead"
+            android:textColor="@color/design_default_color_primary" />
 
     </LinearLayout>
 </ScrollView>

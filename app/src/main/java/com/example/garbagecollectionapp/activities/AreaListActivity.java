@@ -18,7 +18,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AreaListActivity extends AppCompatActivity {
+public class AreaListActivity extends BaseActivity {
 
     private RecyclerView rvAreas;
     private AreaAdapter areaAdapter;
@@ -39,6 +39,16 @@ public class AreaListActivity extends AppCompatActivity {
 
         setupRecyclerView();
         loadAreas();
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_area_list;
+    }
+
+    @Override
+    protected int getSelectedNavigationItem() {
+        return R.id.nav_areas;
     }
 
     private void setupRecyclerView() {

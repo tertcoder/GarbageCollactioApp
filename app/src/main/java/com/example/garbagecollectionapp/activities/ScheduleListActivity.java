@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ScheduleListActivity extends AppCompatActivity {
+public class ScheduleListActivity extends BaseActivity {
 
     private RecyclerView rvSchedules;
     private ScheduleAdapter scheduleAdapter;
@@ -40,6 +40,16 @@ public class ScheduleListActivity extends AppCompatActivity {
 
         setupRecyclerView();
         loadSchedules();
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_schedule_list;
+    }
+
+    @Override
+    protected int getSelectedNavigationItem() {
+        return R.id.nav_schedules;
     }
 
     private void setupRecyclerView() {
