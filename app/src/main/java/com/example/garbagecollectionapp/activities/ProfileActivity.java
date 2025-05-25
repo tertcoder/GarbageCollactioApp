@@ -1,4 +1,4 @@
-package com.example.garbagecollection.activities;
+package com.example.garbagecollectionapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.garbagecollection.R;
-import com.example.garbagecollection.models.User;
-import com.example.garbagecollection.utils.SharedPrefManager;
+import com.example.garbagecollectionapp.R;
+import com.example.garbagecollectionapp.models.User;
+import com.example.garbagecollectionapp.utils.SharedPrefManager;
 
 public class ProfileActivity extends AppCompatActivity {
 
