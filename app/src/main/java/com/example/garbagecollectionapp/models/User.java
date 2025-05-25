@@ -23,6 +23,8 @@ public class User {
     @SerializedName("active")
     private boolean active;
 
+    private String password;
+
     // Getters and Setters
     public String getId() {
         return id;
@@ -71,4 +73,9 @@ public class User {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }
