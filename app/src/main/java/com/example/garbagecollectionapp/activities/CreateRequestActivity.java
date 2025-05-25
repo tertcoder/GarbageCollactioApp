@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.garbagecollectionapp.R;
 import com.example.garbagecollectionapp.models.Area;
 import com.example.garbagecollectionapp.models.SpecialRequest;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CreateRequestActivity extends AppCompatActivity {
+public class CreateRequestActivity extends BaseActivity {
 
     private Spinner spinnerArea;
     private TextView tvDate;
@@ -47,6 +45,16 @@ public class CreateRequestActivity extends AppCompatActivity {
         setupAreaSpinner();
         setupDatePicker();
         setupSubmitButton();
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_create_request;
+    }
+
+    @Override
+    protected int getSelectedNavigationItem() {
+        return R.id.nav_requests;
     }
 
     private void setupAreaSpinner() {
@@ -85,53 +93,43 @@ public class CreateRequestActivity extends AppCompatActivity {
 
     private void setupDatePicker() {
         selectedDate = Calendar.getInstance();
-        updateDateText();
+        updateDateDisplay();
 
         tvDate.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                (view, year, month, dayOfMonth) -> {
-                    selectedDate.set(year, month, dayOfMonth);
-                    updateDateText();
-                },
-                selectedDate.get(Calendar.YEAR),
-                selectedDate.get(Calendar.MONTH),
-                selectedDate.get(Calendar.DAY_OF_MONTH)
+                    this,
+                    (view, year, month, dayOfMonth) -> {
+                        selectedDate.set(year, month, dayOfMonth);
+                        updateDateDisplay();
+                    },
+                    selectedDate.get(Calendar.YEAR),
+                    selectedDate.get(Calendar.MONTH),
+                    selectedDate.get(Calendar.DAY_OF_MONTH)
             );
-            
-            // Set minimum date to today
             datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
             datePickerDialog.show();
         });
     }
 
-    private void updateDateText() {
+    private void updateDateDisplay() {
         tvDate.setText(DateUtils.formatDate(selectedDate.getTime(), DateUtils.DISPLAY_DATE_FORMAT));
     }
 
     private void setupSubmitButton() {
         btnSubmit.setOnClickListener(v -> {
-            String description = etDescription.getText().toString().trim();
-
             if (selectedAreaId == null) {
                 Toast.makeText(this, "Please select an area", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            String description = etDescription.getText().toString().trim();
             if (description.isEmpty()) {
-                etDescription.setError("Description is required");
+                etDescription.setError("Please enter a description");
                 etDescription.requestFocus();
                 return;
             }
 
-            // Create the request
-            SpecialRequest request = new SpecialRequest();
-            request.setAreaId(selectedAreaId);
-            request.setRequestDate(selectedDate.getTime());
-            request.setDescription(description);
-            request.setStatus("PENDING");
-
-            // TODO: Call API to create request
+            // TODO: Implement API call to create request
             Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_SHORT).show();
             finish();
         });

@@ -15,10 +15,13 @@ import com.example.garbagecollectionapp.models.User;
 import com.example.garbagecollectionapp.utils.SharedPrefManager;
 import com.google.android.material.button.MaterialButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -101,33 +104,49 @@ public class RegisterActivity extends AppCompatActivity {
                     try {
                         String jsonResponse = response.body().string();
                         JSONObject jsonObject = new JSONObject(jsonResponse);
-                        JSONObject data = jsonObject.getJSONObject("data");
+                        
+                        if (jsonObject.getBoolean("success")) {
+                            JSONObject data = jsonObject.getJSONObject("data");
+                            
+                            String token = data.getString("token");
+                            String refreshToken = data.getString("refreshToken");
+                            
+                            User user = new User();
+                            user.setId(data.getString("id"));
+                            user.setFullName(data.getString("fullName"));
+                            user.setEmail(data.getString("email"));
+                            
+                            // Set roles if available
+                            if (data.has("roles")) {
+                                List<String> roles = new ArrayList<>();
+                                JSONArray rolesArray = data.getJSONArray("roles");
+                                for (int i = 0; i < rolesArray.length(); i++) {
+                                    roles.add(rolesArray.getString(i));
+                                }
+                                user.setRoles(roles);
+                            }
 
-                        String token = data.getString("token");
-                        String refreshToken = data.getString("refreshToken");
-                        JSONObject userJson = data.getJSONObject("user");
+                            SharedPrefManager.getInstance().userLogin(user, token, refreshToken);
 
-                        User user = new User();
-                        user.setId(userJson.getString("id"));
-                        user.setFullName(userJson.getString("fullName"));
-                        user.setEmail(userJson.getString("email"));
-                        user.setPhoneNumber(userJson.getString("phoneNumber"));
-
-                        // Save user data and tokens
-                        SharedPrefManager.getInstance().saveUser(user);
-                        SharedPrefManager.getInstance().saveToken(token);
-                        SharedPrefManager.getInstance().saveRefreshToken(refreshToken);
-
-                        // Navigate to main activity
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                        finish();
-
+                            Toast.makeText(RegisterActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(RegisterActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                    try {
+                        String errorBody = response.errorBody().string();
+                        JSONObject errorJson = new JSONObject(errorBody);
+                        String errorMessage = errorJson.getString("message");
+                        Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

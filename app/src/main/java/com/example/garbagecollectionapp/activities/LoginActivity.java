@@ -85,12 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                         user.setFullName(data.getString("fullName"));
                         user.setEmail(data.getString("email"));
 
-                        // Save user data and tokens
-                        SharedPrefManager.getInstance().saveUser(user);
-                        SharedPrefManager.getInstance().saveToken(token);
-                        SharedPrefManager.getInstance().saveRefreshToken(refreshToken);
+                        SharedPrefManager.getInstance().userLogin(user, token, refreshToken);
 
-                        // Navigate to main activity
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
 

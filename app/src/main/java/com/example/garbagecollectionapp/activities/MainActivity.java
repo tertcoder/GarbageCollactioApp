@@ -31,6 +31,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         fabCreateRequest = findViewById(R.id.fab_create_request);
         tvToolbarTitle = findViewById(R.id.tv_toolbar_title);
 
+        // Set initial toolbar title
+        tvToolbarTitle.setText(R.string.home);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
@@ -55,7 +58,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.content_container, fragment)
                     .commit();
             return true;
         }
@@ -68,22 +71,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         int itemId = item.getItemId();
 
         if (itemId == R.id.nav_home) {
-            tvToolbarTitle.setText(R.string.home);
+            if (tvToolbarTitle != null) {
+                tvToolbarTitle.setText(R.string.home);
+            }
             fragment = new HomeFragment();
         } else if (itemId == R.id.nav_areas) {
-            tvToolbarTitle.setText(R.string.areas);
             startActivity(new Intent(this, AreaListActivity.class));
             return true;
         } else if (itemId == R.id.nav_schedules) {
-            tvToolbarTitle.setText(R.string.schedules);
             startActivity(new Intent(this, ScheduleListActivity.class));
             return true;
         } else if (itemId == R.id.nav_requests) {
-            tvToolbarTitle.setText(R.string.requests);
             startActivity(new Intent(this, RequestListActivity.class));
             return true;
         } else if (itemId == R.id.nav_profile) {
-            tvToolbarTitle.setText(R.string.profile);
             startActivity(new Intent(this, ProfileActivity.class));
             return true;
         }
