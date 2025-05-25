@@ -18,14 +18,13 @@ import com.example.garbagecollectionapp.R;
 import com.example.garbagecollectionapp.models.Area;
 import com.example.garbagecollectionapp.models.SpecialRequest;
 import com.example.garbagecollectionapp.utils.DateUtils;
-import com.example.garbagecollectionapp.utils.SharedPrefManager;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.example.garbagecollectionapp.utils.SharedPrefManager; 
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class CreateRequestActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class CreateRequestActivity extends AppCompatActivity {
 
     private Spinner spinnerArea;
     private TextView tvDate;
@@ -89,25 +88,25 @@ public class CreateRequestActivity extends AppCompatActivity implements DatePick
         updateDateText();
 
         tvDate.setOnClickListener(v -> {
-            DatePickerDialog dpd = DatePickerDialog.newInstance(
-                    CreateRequestActivity.this,
-                    selectedDate.get(Calendar.YEAR),
-                    selectedDate.get(Calendar.MONTH),
-                    selectedDate.get(Calendar.DAY_OF_MONTH))
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, year, month, dayOfMonth) -> {
+                    selectedDate.set(year, month, dayOfMonth);
+                    updateDateText();
+                },
+                selectedDate.get(Calendar.YEAR),
+                selectedDate.get(Calendar.MONTH),
+                selectedDate.get(Calendar.DAY_OF_MONTH)
             );
-            dpd.setMinDate(Calendar.getInstance());
-            dpd.show(getSupportFragmentManager(), "Datepickerdialog");
+            
+            // Set minimum date to today
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            datePickerDialog.show();
         });
     }
 
     private void updateDateText() {
         tvDate.setText(DateUtils.formatDate(selectedDate.getTime(), DateUtils.DISPLAY_DATE_FORMAT));
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        selectedDate.set(year, monthOfYear, dayOfMonth);
-        updateDateText();
     }
 
     private void setupSubmitButton() {

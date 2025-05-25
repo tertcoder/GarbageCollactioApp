@@ -55,28 +55,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
+        int itemId = item.getItemId();
 
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                tvToolbarTitle.setText(R.string.home);
-                fragment = new HomeFragment();
-                break;
-            case R.id.nav_areas:
-                tvToolbarTitle.setText(R.string.areas);
-                startActivity(new Intent(this, AreaListActivity.class));
-                return true;
-            case R.id.nav_schedules:
-                tvToolbarTitle.setText(R.string.schedules);
-                startActivity(new Intent(this, ScheduleListActivity.class));
-                return true;
-            case R.id.nav_requests:
-                tvToolbarTitle.setText(R.string.requests);
-                startActivity(new Intent(this, RequestListActivity.class));
-                return true;
-            case R.id.nav_profile:
-                tvToolbarTitle.setText(R.string.profile);
-                startActivity(new Intent(this, ProfileActivity.class));
-                return true;
+        if (itemId == R.id.nav_home) {
+            tvToolbarTitle.setText(R.string.home);
+            fragment = new HomeFragment();
+        } else if (itemId == R.id.nav_areas) {
+            tvToolbarTitle.setText(R.string.areas);
+            startActivity(new Intent(this, AreaListActivity.class));
+            return true;
+        } else if (itemId == R.id.nav_schedules) {
+            tvToolbarTitle.setText(R.string.schedules);
+            startActivity(new Intent(this, ScheduleListActivity.class));
+            return true;
+        } else if (itemId == R.id.nav_requests) {
+            tvToolbarTitle.setText(R.string.requests);
+            startActivity(new Intent(this, RequestListActivity.class));
+            return true;
+        } else if (itemId == R.id.nav_profile) {
+            tvToolbarTitle.setText(R.string.profile);
+            startActivity(new Intent(this, ProfileActivity.class));
+            return true;
         }
 
         return loadFragment(fragment);
