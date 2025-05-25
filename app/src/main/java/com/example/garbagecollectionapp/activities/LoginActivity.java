@@ -79,13 +79,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         String token = data.getString("token");
                         String refreshToken = data.getString("refreshToken");
-                        JSONObject userJson = data.getJSONObject("user");
 
                         User user = new User();
-                        user.setId(userJson.getString("id"));
-                        user.setFullName(userJson.getString("fullName"));
-                        user.setEmail(userJson.getString("email"));
-                        user.setPhoneNumber(userJson.getString("phoneNumber"));
+                        user.setId(data.getString("id"));
+                        user.setFullName(data.getString("fullName"));
+                        user.setEmail(data.getString("email"));
 
                         SharedPrefManager.getInstance().userLogin(user, token, refreshToken);
 
