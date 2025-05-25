@@ -113,8 +113,12 @@ public class RegisterActivity extends AppCompatActivity {
                         user.setEmail(userJson.getString("email"));
                         user.setPhoneNumber(userJson.getString("phoneNumber"));
 
-                        SharedPrefManager.getInstance().userLogin(user, token, refreshToken);
+                        // Save user data and tokens
+                        SharedPrefManager.getInstance().saveUser(user);
+                        SharedPrefManager.getInstance().saveToken(token);
+                        SharedPrefManager.getInstance().saveRefreshToken(refreshToken);
 
+                        // Navigate to main activity
                         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                         finish();
 
