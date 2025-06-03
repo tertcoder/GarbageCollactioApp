@@ -8,11 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     private static final String EMULATOR_BASE_URL = "http://10.0.2.2:8080/api/v1/";
-    private static final String PHYSICAL_DEVICE_BASE_URL = "http://192.168.0.121:8080/api/v1/";
+    private static final String PHYSICAL_DEVICE_BASE_URL = "http://192.168.219.126:8080/api/v1/";
     private static Retrofit retrofit = null;
 
     private static String getBaseUrl() {
-        // Check if running on emulator
         if (Build.FINGERPRINT.startsWith("generic") || 
             Build.FINGERPRINT.startsWith("unknown") ||
             Build.MODEL.contains("google_sdk") ||
